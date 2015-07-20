@@ -1,13 +1,17 @@
-#include "stdio.h"
-struct n{
-    int i;
-    char j;
-    float m;
-};
- int main(void)
+#include "linux/init.h"
+#include "linux/module.h"
+MODULE_LICENSE("Dual BSD/GPL");
+ 
+static int hello_init(void)
 {
-        struct n cc;
-        cc.i=1;
-	printf("%d\n",cc.i);
+	printk(KERN_ALERT "Hello,World\n");
 	return 0;
 }
+
+static void hello_exit(void)
+{
+       printk(KERN_ALERT "Goodbye,Cruel world\n");
+}
+
+module_init(hello_init);
+module_exit(hello_exit);
